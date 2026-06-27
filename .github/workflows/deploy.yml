@@ -36,10 +36,8 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Delete Workspace Lockfile and Clean Install
-        run: |
-          rm -f pnpm-lock.yaml
-          pnpm install --no-frozen-lockfile
+      - name: Clean Install dependencies
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build static files
         run: pnpm run build
