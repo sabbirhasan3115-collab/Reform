@@ -36,12 +36,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Purge Workspace Configurations
+      - name: Delete Workspace Lockfile and Clean Install
         run: |
-          # Strip workspaces out of package.json if they exist
-          jq 'del(.workspaces)' package.json > temp.json && mv temp.json package.json
-          
-          # Clean install dependencies safely
+          rm -f pnpm-lock.yaml
           pnpm install --no-frozen-lockfile
 
       - name: Build static files
