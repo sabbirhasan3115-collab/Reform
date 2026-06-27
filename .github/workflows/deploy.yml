@@ -36,9 +36,12 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Force Single App Mode and Install
+      - name: Purge Workspace Configurations
         run: |
-          pnpm config set workspace-dependencies-key-name false
+          # Strip workspaces out of package.json if they exist
+          jq 'del(.workspaces)' package.json > temp.json && mv temp.json package.json
+          
+          # Clean install dependencies safely
           pnpm install --no-frozen-lockfile
 
       - name: Build static files
